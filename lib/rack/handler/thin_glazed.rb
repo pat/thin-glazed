@@ -4,20 +4,16 @@ require 'rack/chunked'
 require 'rack/handler'
 require 'rack/handler/thin'
 
-module Rack
-  module Handler
-    class ThinGlazed < Rack::Handler::Thin
-      def self.run(app, options = {})
-        EventMachine.run do
-          https_proxy = ::Thin::Glazed::Server.new(options[:Host] || '0.0.0.0',
-            options[:ProxyPort] || 3443)
-          https_proxy.start
+class Rack::Handler::ThinGlazed < Rack::Handler::Thin
+  def self.run(app, options = {})
+    EventMachine.run do
+      https_proxy = ::Thin::Glazed::Server.new(options[:Host] || '0.0.0.0',
+        options[:ProxyPort] || 3443)
+      https_proxy.start
 
-          super
-        end
-      end
+      super
     end
-
-    register 'thin_glazed', 'Rack::Handler::ThinGlazed'
   end
 end
+
+Rack::Handler.register 'thin_glazed', 'Rack::Handler::ThinGlazed'
