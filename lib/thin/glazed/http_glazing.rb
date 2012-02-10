@@ -3,7 +3,7 @@ class Thin::Glazed::HttpGlazing < EventMachine::Connection
     client.send_data data unless data.nil?
   end
 
-  def relay_from_server(data)
+  def relay_from_client(data)
     send_data data unless data.nil?
   end
 
@@ -12,7 +12,7 @@ class Thin::Glazed::HttpGlazing < EventMachine::Connection
     @client = nil
   end
 
-  def unbind_server
+  def unbind_client
     close_connection_after_writing
     @client = nil
   end

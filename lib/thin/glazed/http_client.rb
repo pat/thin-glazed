@@ -3,7 +3,7 @@ class Thin::Glazed::HttpClient < EventMachine::Connection
 
   def initialize(proxy)
     @proxy     = proxy
-    @connected = EM::DefaultDeferrable.new
+    @connected = EventMachine::DefaultDeferrable.new
   end
 
   def connection_completed
@@ -11,7 +11,7 @@ class Thin::Glazed::HttpClient < EventMachine::Connection
   end
 
   def receive_data(data)
-    @proxy.relay_from_server(data)
+    proxy.relay_from_client(data)
   end
 
   def send(data)
@@ -19,6 +19,6 @@ class Thin::Glazed::HttpClient < EventMachine::Connection
   end
 
   def unbind
-    proxy.unbind_server
+    proxy.unbind_client
   end
 end
