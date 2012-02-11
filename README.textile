@@ -1,0 +1,56 @@
+h1. Thin::Glazed
+
+This library adds an HTTPS proxy to Thin, which allows you to run your Rails apps that use both HTTP and HTTPS protocols simply within a browser, as well as in your Capybara integration tests, should you so desire.
+
+It was written to keep things consistent - with SSL in development, test and production environments.
+
+This wouldn't have been possible (or at least, would have been a far larger headache) if it wasn't for the source and examples of the em-proxy gem.
+
+h2. Installation
+
+Add this line to your application's Gemfile, in your development and/or test groups:
+
+<pre><code>gem 'thin-glazed'</code></pre>
+
+h2. Using it in Development
+
+You can use the glazed server when you fire up your Rails app locally:
+
+<pre><code>./script/rails server thin_glazed</code></pre>
+
+This will provide HTTPS over port 3443 - I use my fork of the bartll-ssl_requirement gem to specify which ports have which protocols, at the end of my @config/environments/development.rb@ file:
+
+<pre><code>SslRequirement.non_ssl_port = 3000
+SslRequirement.non_ssl_port = 3443</code></pre>
+
+This ensures redirects from one protocol to the other work accordingly.
+
+If you want to have this as your default development server, add a @:require@ option to the listing in your Gemfile:
+
+<pre><code>gem 'thin-glazed', :require => 'thin/glazed/as_default'</code></pre>
+
+h2. Using it with tests
+
+*Note*: this currently has a dependency on my fork of bartll-ssl_requirement. I'd love some suggestions on instructing Rails on what the HTTP and HTTPS ports are without external requirements.
+
+It should just work, if you're using straight Capybara, or Capybara with Selenium. For Webkit, you'll want to use @:glazed_webkit@ instead of @:webkit@ for your javascript driver:
+
+<pre><code>Capybara.javascript_driver = :glazed_webkit</code></pre>
+
+h2. Using it in production
+
+Don't. This isn't built for production - you'd be far better served with a tool like Pound, or really just letting Nginx or Apache handle it all for you.
+
+h2. Contributing
+
+* Fork it
+* Create your feature branch (`git checkout -b my-new-feature`)
+* Write your tests
+* Write the code to make your tests pass
+* Commit your changes (`git commit -am 'Added some feature'`)
+* Push to the branch (`git push origin my-new-feature`)
+* Create new Pull Request
+
+h2. Credits
+
+Copyright (c) 2012, Thin::Glazed is developed and maintained by Pat Allan, and is released under the open MIT Licence.
