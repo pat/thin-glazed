@@ -29,6 +29,10 @@ If you want to have this as your default development server, add a @:require@ op
 
 <pre><code>gem 'thin-glazed', :require => 'thin/glazed/as_default'</code></pre>
 
+And from there, it'll just work:
+
+<pre><code>./script/rails server</code></pre>
+
 h2. Using it with tests
 
 *Note*: this currently has a dependency on my fork of bartll-ssl_requirement. I'd love some suggestions on instructing Rails on what the HTTP and HTTPS ports are without external requirements.
