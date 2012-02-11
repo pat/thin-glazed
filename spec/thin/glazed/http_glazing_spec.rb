@@ -7,7 +7,7 @@ require './lib/thin/glazed/http_glazing'
 class Thin::Glazed::HttpClient; end
 
 describe Thin::Glazed::HttpGlazing do
-  let(:glazing) { Thin::Glazed::HttpGlazing.new }
+  let(:glazing) { Thin::Glazed::HttpGlazing.new 3123 }
   let(:client)  { double('client', :send_data => true) }
 
   before :each do
@@ -15,9 +15,9 @@ describe Thin::Glazed::HttpGlazing do
   end
 
   describe '#receive_data' do
-    it "initializes a local client to port 3000 using itself as the proxy" do
+    it "initializes a local client to the given port using itself as the proxy" do
       EventMachine.should_receive(:connect).
-        with('127.0.0.1', 3000, Thin::Glazed::HttpClient, glazing).
+        with('127.0.0.1', 3123, Thin::Glazed::HttpClient, glazing).
         and_return(client)
 
       glazing.receive_data('qux')

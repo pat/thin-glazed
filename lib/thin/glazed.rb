@@ -11,4 +11,10 @@ require 'thin/glazed/https_glazing'
 require 'thin/glazed/server'
 require 'thin/glazed/version'
 
-require 'rack/handler/thin_glazed' if defined?(Rack)
+if defined?(Rack)
+  require 'rack/handler/thin_glazed'
+end
+
+if defined?(Capybara) && Capybara.respond_to?(:configure)
+  require 'thin/glazed/capybara'
+end

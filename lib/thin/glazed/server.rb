@@ -1,14 +1,17 @@
 class Thin::Glazed::Server
-  attr_reader :host, :port
+  include Thin::Logging
 
-  def initialize(host, port)
-    @host, @port = host, port
+  attr_reader :host, :port, :client_port
+
+  def initialize(host, port, client_port)
+    @host, @port, @client_port = host, port, client_port
   end
 
   def start
-    puts ">> Thin::Glazed HTTPS Proxy (v#{Thin::Glazed::VERSION})"
-    puts ">> Listening on #{host}:#{port}"
+    log ">> Thin::Glazed HTTPS Proxy (v#{Thin::Glazed::VERSION})"
+    log ">> Listening on #{host}:#{port}"
 
-    EventMachine.start_server host, port, Thin::Glazed::HttpsGlazing
+    EventMachine.start_server host, port, Thin::Glazed::HttpsGlazing,
+      client_port
   end
 end

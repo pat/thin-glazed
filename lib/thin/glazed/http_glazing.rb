@@ -1,4 +1,10 @@
 class Thin::Glazed::HttpGlazing < EventMachine::Connection
+  attr_reader :client_port
+
+  def initialize(client_port)
+    @client_port = client_port
+  end
+
   def receive_data(data)
     client.send_data data unless data.nil?
   end
@@ -20,7 +26,7 @@ class Thin::Glazed::HttpGlazing < EventMachine::Connection
   private
 
   def client
-    @client ||= EventMachine.connect '127.0.0.1', 3000,
+    @client ||= EventMachine.connect '127.0.0.1', client_port,
       Thin::Glazed::HttpClient, self
   end
 end

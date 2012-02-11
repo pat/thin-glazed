@@ -8,7 +8,7 @@ require './lib/thin/glazed/https_glazing'
 class Thin::Glazed::HttpClient; end
 
 describe Thin::Glazed::HttpsGlazing do
-  let(:glazing) { Thin::Glazed::HttpsGlazing.new }
+  let(:glazing) { Thin::Glazed::HttpsGlazing.new 3444 }
   let(:client)  { double('client', :send_data => true) }
 
   before :each do
