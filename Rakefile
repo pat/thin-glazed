@@ -1,2 +1,11 @@
 #!/usr/bin/env rake
-require "bundler/gem_tasks"
+require 'rubygems'
+require 'bundler'
+
+Bundler::GemHelper.install_tasks
+Bundler.require :default, :development
+
+require 'rspec/core/rake_task'
+RSpec::Core::RakeTask.new
+
+task :default => :spec
