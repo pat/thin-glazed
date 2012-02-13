@@ -12,13 +12,13 @@ Add this line to your application's Gemfile, in your development and/or test gro
 
 <pre><code>gem 'thin-glazed'</code></pre>
 
-h2. Using it in Development
+h2. Using it in development
 
 You can use the glazed server when you fire up your Rails app locally:
 
 <pre><code>./script/rails server thin_glazed</code></pre>
 
-This will provide HTTPS over port 3443 - I use my fork of the bartll-ssl_requirement gem to specify which ports have which protocols, at the end of my @config/environments/development.rb@ file:
+This will provide HTTPS over port 3443 - I use "my fork":https://github.com/freelancing-god/ssl_requirement of the bartll-ssl_requirement gem to specify which ports have which protocols, at the end of my @config/environments/development.rb@ file:
 
 <pre><code>SslRequirement.non_ssl_port = 3000
 SslRequirement.non_ssl_port = 3443</code></pre>
@@ -35,7 +35,7 @@ And from there, it'll just work:
 
 h2. Using it with tests
 
-*Note*: this currently has a dependency on my fork of bartll-ssl_requirement. I'd love some suggestions on instructing Rails on what the HTTP and HTTPS ports are without external requirements.
+*Note*: this currently has a dependency on "my fork":https://github.com/freelancing-god/ssl_requirement of bartll-ssl_requirement. I'd love some suggestions on instructing Rails on what the HTTP and HTTPS ports are without external requirements.
 
 It should just work, if you're using straight Capybara, or Capybara with Selenium. For Webkit, you'll want to use @:glazed_webkit@ instead of @:webkit@ for your javascript driver:
 
