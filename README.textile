@@ -57,4 +57,4 @@ h2. Contributing
 
 h2. Credits
 
-Copyright (c) 2012, Thin::Glazed is developed and maintained by Pat Allan, and is released under the open MIT Licence.
+Copyright (c) 2012, Thin::Glazed was a Rails Camp New Zealand project, and is developed and maintained by Pat Allan. It is released under the open MIT Licence.
